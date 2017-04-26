@@ -91,3 +91,7 @@ ENV/
 # Config file with credentials
 config.ini
 *.log
+misc.xml
+modules.xml
+vcs.xml
+WebMiningPreprocessing.iml
