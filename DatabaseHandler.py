@@ -9,7 +9,7 @@ import threading
 import pymysql
 import pymysql.cursors
 
-###BASED ON Seb's DatabaseHandler
+### based on Sebastian's database handler (uses pymysql)
 
 class DatabaseHandler:
     """
@@ -41,9 +41,8 @@ class DatabaseHandler:
             warnings.filterwarnings("error", category=pymysql.Warning)
             self.cnx = self.data_base.cursor()
             self.data_base.autocommit(True)
-            self.logger.debug(
-                'Connected to database %s on %s with user %s'
-                % (self.db_name, self.host, self.user))
+            self.logger.debug('Connected to database %s on %s with user %s'
+                              % (self.db_name, self.host, self.user))
         except pymysql.Error as my_sql_error:
             self.logger.error(
                 "Error while establishing connection to the database server [%d]: %s"
@@ -90,7 +89,7 @@ class DatabaseHandler:
 
 
     @staticmethod
-    def __build_select_sql(self, table_name):
+    def __build_select_sql(table_name):
         """
         Builds a select * statement.
         :param table_name: The table for which a select * shall be performed.

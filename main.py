@@ -6,6 +6,7 @@ A delta mechanism is implemented, i.e., only BOW for new articles are created.
 import configparser
 import sys
 import os
+import logging
 from DatabaseHandler import DatabaseHandler
 from LemmatizationFilePreprocessing import LemmatizationFilePreprocessing
 import argparse
@@ -84,7 +85,9 @@ def insert_bow_of_new_articles(limit=10000000):
         counter = counter + 1
         print("Processing article " + str(counter) + " of " + str(number_of_new_articles) + ".")
         print("Processing: " + entry['uri'])
-        # print(str(entry['text']))
+
+        #transforming the URI to avoid SQL errors
+        entry['uri'] = str.replace(entry['uri'], "'", "''")
         transformed_result = LemmatizationFilePreprocessing.string_transformation(str(entry['text']))
         bow = (' '.join(transformed_result))
         sql_insert_command = "INSERT INTO NewsArticlesBOW (source_uri, bow)" \
@@ -94,7 +97,13 @@ def insert_bow_of_new_articles(limit=10000000):
             return
 
 
+def main():
+    logging.basicConfig(level=logging.DEBUG)
+    insert_bow_of_new_articles()
+
 
 # to start, make sure you have a config.ini
 # run in console: python main.py -c "config.ini"
-insert_bow_of_new_articles()
+if __name__ == "__main__":
+    main()
+
