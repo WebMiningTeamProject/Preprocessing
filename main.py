@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 """
 This module creates a bag of word for the existing news paper articles in table NewsArticles.
 The BOW is saved in table NewsArticlesBOW.
